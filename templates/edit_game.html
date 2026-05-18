@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<body style="background:#0d0d0d;color:#00ffff;font-family:Arial;padding:30px;">
+
+<h1>Edit Game</h1>
+
+<form method="POST" action="/update_game/{{ game[0] }}">
+
+    <input type="text"
+           name="game_name"
+           value="{{ game[1] }}">
+
+    <input type="text"
+           name="type"
+           value="{{ game[2] }}">
+
+    <input type="text"
+           name="size_gb"
+           value="{{ game[3] }}">
+
+    <button type="submit">
+        Update
+    </button>
+
+</form>
+
+</body>
+</html>

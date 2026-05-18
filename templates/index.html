@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Cyberpunk Gaming Cafe</title>
+
+    <style>
+
+        body{
+            background-color: #0d0d0d;
+            color: #00ffff;
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        h1{
+            color: #ff00ff;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #111;
+        }
+
+        th{
+            background-color: #ff00ff;
+            padding: 15px;
+        }
+
+        td{
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:hover{
+            background-color: #1f1f1f;
+        }
+
+        input{
+            padding: 10px;
+            margin-right: 10px;
+            background: #111;
+            border: 1px solid #00ffff;
+            color: white;
+        }
+
+        button{
+            padding: 10px;
+            background: #ff00ff;
+            border: none;
+            color: white;
+        }
+
+        a{
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>🎮 CYBERPUNK GAMING CAFE</h1>
+
+<a href="/games">🎮 View Games</a>
+
+<br><br>
+
+<form method="POST" action="/add">
+
+    <input type="text" name="name" placeholder="Name">
+
+    <input type="text" name="phone" placeholder="Phone">
+
+    <input type="email" name="email" placeholder="Email">
+
+    <button type="submit">
+        Add Customer
+    </button>
+
+</form>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Edit</th>
+    <th>Delete</th>
+</tr>
+
+{% for customer in customers %}
+
+<tr>
+
+    <td>{{ customer[0] }}</td>
+    <td>{{ customer[1] }}</td>
+    <td>{{ customer[2] }}</td>
+    <td>{{ customer[3] }}</td>
+
+    <td>
+        <a href="/edit/{{ customer[0] }}">
+            ✏ Edit
+        </a>
+    </td>
+
+    <td>
+        <a href="/delete/{{ customer[0] }}">
+            ❌ Delete
+        </a>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
