@@ -21,14 +21,29 @@ body{
 .game-card{
     width:250px;
     background:#111;
-    padding:15px;
     border:1px solid #00ffff;
+    padding:15px;
 }
 
 .game-card img{
     width:100%;
     height:150px;
     object-fit:cover;
+}
+
+input{
+    padding:10px;
+    margin:5px;
+    background:#111;
+    border:1px solid #00ffff;
+    color:white;
+}
+
+button{
+    padding:10px;
+    background:#ff00ff;
+    color:white;
+    border:none;
 }
 
 a{
@@ -46,14 +61,31 @@ a{
 
 <a href="/">🏠 Home</a>
 
+<br><br>
+
+<form method="POST" action="/add_game">
+
+    <input type="text" name="game_name" placeholder="Game Name">
+
+    <input type="text" name="type" placeholder="Type">
+
+    <input type="text" name="size_gb" placeholder="Size GB">
+
+    <input type="text" name="image" placeholder="Image URL">
+
+    <button type="submit">
+        Add Game
+    </button>
+
+</form>
+
 <div class="game-container">
 
 {% for game in games %}
 
 <div class="game-card">
 
-    <!-- ใส่ลิงก์รูปตรงนี้ -->
-    <img src="PASTE_IMAGE_LINK_HERE">
+    <img src="{{ game[4] }}">
 
     <h2>{{ game[1] }}</h2>
 
