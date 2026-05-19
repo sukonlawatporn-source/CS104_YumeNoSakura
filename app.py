@@ -1,5 +1,16 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
+import os
+
+if not os.path.exists('database.db'):
+
+    conn = sqlite3.connect('database.db')
+
+    with open('cafecode.sql', 'r', encoding='utf-8') as f:
+        conn.executescript(f.read())
+
+    conn.commit()
+    conn.close()
 
 app = Flask(__name__)
 
@@ -8,7 +19,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM customers")
@@ -24,18 +35,21 @@ def home():
 
 # ================= ADD CUSTOMER =================
 
-@app.route('/add', methods=['POST'])
+@app.route('/add_customer', methods=['POST'])
 def add_customer():
 
     name = request.form['name']
     phone = request.form['phone']
     email = request.form['email']
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO customers (name, phone, email) VALUES (?, ?, ?)",
+        """
+        INSERT INTO customers(name, phone, email)
+        VALUES (?, ?, ?)
+        """,
         (name, phone, email)
     )
 
@@ -46,10 +60,10 @@ def add_customer():
 
 # ================= DELETE CUSTOMER =================
 
-@app.route('/delete/<int:id>')
+@app.route('/delete_customer/<int:id>')
 def delete_customer(id):
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
@@ -64,10 +78,10 @@ def delete_customer(id):
 
 # ================= EDIT CUSTOMER =================
 
-@app.route('/edit/<int:id>')
+@app.route('/edit_customer/<int:id>')
 def edit_customer(id):
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
@@ -80,20 +94,20 @@ def edit_customer(id):
     conn.close()
 
     return render_template(
-        'edit.html',
+        'edit_customer.html',
         customer=customer
     )
 
 # ================= UPDATE CUSTOMER =================
 
-@app.route('/update/<int:id>', methods=['POST'])
+@app.route('/update_customer/<int:id>', methods=['POST'])
 def update_customer(id):
 
     name = request.form['name']
     phone = request.form['phone']
     email = request.form['email']
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
@@ -115,7 +129,7 @@ def update_customer(id):
 @app.route('/games')
 def games():
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM games")
@@ -129,12 +143,38 @@ def games():
         games=games
     )
 
+# ================= ADD GAME =================
+
+@app.route('/add_game', methods=['POST'])
+def add_game():
+
+    game_name = request.form['game_name']
+    type = request.form['type']
+    size_gb = request.form['size_gb']
+    image = request.form['image']
+
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO games(game_name, type, size_gb, image)
+        VALUES (?, ?, ?, ?)
+        """,
+        (game_name, type, size_gb, image)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/games')
+
 # ================= DELETE GAME =================
 
 @app.route('/delete_game/<int:id>')
 def delete_game(id):
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
@@ -152,7 +192,7 @@ def delete_game(id):
 @app.route('/edit_game/<int:id>')
 def edit_game(id):
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
@@ -177,17 +217,18 @@ def update_game(id):
     game_name = request.form['game_name']
     type = request.form['type']
     size_gb = request.form['size_gb']
+    image = request.form['image']
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(r'C:\GroupSQL\database.db')
     cursor = conn.cursor()
 
     cursor.execute(
         """
         UPDATE games
-        SET game_name = ?, type = ?, size_gb = ?
+        SET game_name = ?, type = ?, size_gb = ?, image = ?
         WHERE game_id = ?
         """,
-        (game_name, type, size_gb, id)
+        (game_name, type, size_gb, image, id)
     )
 
     conn.commit()
