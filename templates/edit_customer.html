@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<body style="background:#0d0d0d;color:#00ffff;font-family:Arial;padding:30px;">
+
+<h1>Edit Customer</h1>
+
+<form method="POST" action="/update_customer/{{ customer[0] }}">
+
+    <input type="text" name="name" value="{{ customer[1] }}">
+
+    <input type="text" name="phone" value="{{ customer[2] }}">
+
+    <input type="email" name="email" value="{{ customer[3] }}">
+
+    <button type="submit">
+        Update
+    </button>
+
+</form>
+
+</body>
+</html>
