@@ -3,62 +3,52 @@
 
 <head>
 
-    <title>Cyberpunk Gaming Cafe</title>
+<style>
 
-    <style>
+body{
+    background:#0d0d0d;
+    color:#00ffff;
+    font-family:Arial;
+    padding:30px;
+}
 
-        body{
-            background-color: #0d0d0d;
-            color: #00ffff;
-            font-family: Arial;
-            padding: 30px;
-        }
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#111;
+}
 
-        h1{
-            color: #ff00ff;
-        }
+th{
+    background:#ff00ff;
+    padding:15px;
+}
 
-        table{
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #111;
-        }
+td{
+    padding:12px;
+    text-align:center;
+}
 
-        th{
-            background-color: #ff00ff;
-            padding: 15px;
-        }
+input{
+    padding:10px;
+    margin:5px;
+    background:#111;
+    border:1px solid #00ffff;
+    color:white;
+}
 
-        td{
-            padding: 12px;
-            text-align: center;
-        }
+button{
+    padding:10px;
+    background:#ff00ff;
+    color:white;
+    border:none;
+}
 
-        tr:hover{
-            background-color: #1f1f1f;
-        }
+a{
+    color:#00ffff;
+    text-decoration:none;
+}
 
-        input{
-            padding: 10px;
-            margin-right: 10px;
-            background: #111;
-            border: 1px solid #00ffff;
-            color: white;
-        }
-
-        button{
-            padding: 10px;
-            background: #ff00ff;
-            border: none;
-            color: white;
-        }
-
-        a{
-            color: #00ffff;
-            text-decoration: none;
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -66,11 +56,11 @@
 
 <h1>🎮 CYBERPUNK GAMING CAFE</h1>
 
-<a href="/games">🎮 View Games</a>
+<a href="/games">🎮 Game Menu</a>
 
 <br><br>
 
-<form method="POST" action="/add">
+<form method="POST" action="/add_customer">
 
     <input type="text" name="name" placeholder="Name">
 
@@ -99,22 +89,22 @@
 
 <tr>
 
-    <td>{{ customer[0] }}</td>
-    <td>{{ customer[1] }}</td>
-    <td>{{ customer[2] }}</td>
-    <td>{{ customer[3] }}</td>
+<td>{{ customer[0] }}</td>
+<td>{{ customer[1] }}</td>
+<td>{{ customer[2] }}</td>
+<td>{{ customer[3] }}</td>
 
-    <td>
-        <a href="/edit/{{ customer[0] }}">
-            ✏ Edit
-        </a>
-    </td>
+<td>
+    <a href="/edit_customer/{{ customer[0] }}">
+        ✏ Edit
+    </a>
+</td>
 
-    <td>
-        <a href="/delete/{{ customer[0] }}">
-            ❌ Delete
-        </a>
-    </td>
+<td>
+    <a href="/delete_customer/{{ customer[0] }}">
+        ❌ Delete
+    </a>
+</td>
 
 </tr>
 
